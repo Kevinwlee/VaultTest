@@ -15,6 +15,7 @@
 {
     // Override point for customization after application launch.
     [ContextHub registerWithAppId:@"9ed83d1c-a72e-4733-aefd-181cbe518a04"];
+    [[ContextHub sharedInstance] setDebug:YES];
     return YES;
 }
 							

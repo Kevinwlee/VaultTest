@@ -9,6 +9,8 @@
 #import "CCHViewController.h"
 #import <ContextHub/ContextHub.h>
 
+
+
 @interface CCHViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (nonatomic, strong) NSArray *items;
@@ -62,7 +64,7 @@
 
 - (IBAction)deleteTapped:(id)sender {
     CCHVault *vault = [CCHVault sharedInstance];
-    id lastItem = [self.items lastObject];
+    id lastItem = [self.items firstObject];
     [vault deleteItem:lastItem completionHandler:^(NSDictionary *response, NSError *error) {
         NSLog(@"RESPONSE %@", response);
         NSLog(@"ERROR %@", error);
@@ -107,6 +109,62 @@
     NSArray *filter = [self.items filteredArrayUsingPredicate:comp];
     NSLog(@"Items %@", filter);
     NSLog(@"predicate %@", comp);
+    
+    [[CCHVault sharedInstance] getItemsWithTags:@[@"integration"] keyPath:@"name" value:@"Kalvin" completionHandler:^(NSArray *responses, NSError *error) {
+        NSLog(@"RESPONSE %@", responses);
+        NSLog(@"ERROR: %@", error);
+        
+    }];
+    
+}
+
+- (IBAction)addTagTapped:(id)sender {
+    NSMutableDictionary *item = [NSMutableDictionary dictionaryWithDictionary:[self.items firstObject]];
+//    NSMutableDictionary *vaultInfo = [item objectForKey:@"vault_info"];
+//    [vaultInfo setObject:@[@"integration", @"added"] forKey:@"tags"];
+    [item setValue:@[@"integration", @"added"] forKeyPath:@"vault_info.tags"];
+    
+    
+    CCHVault *vault = [CCHVault sharedInstance];
+    NSLog(@"Item :%@", item);
+    [vault updateItem:item completionHandler:^(NSDictionary *response, NSError *error) {
+        NSLog(@"RESPONSE %@", response);
+        NSLog(@"ERROR: %@", error);
+    }];
+}
+
+- (IBAction)removeTagTapped:(id)sender {
+    NSMutableDictionary *item = [NSMutableDictionary dictionaryWithDictionary:[self.items firstObject]];
+    //    NSMutableDictionary *vaultInfo = [item objectForKey:@"vault_info"];
+    //    [vaultInfo setObject:@[@"integration", @"added"] forKey:@"tags"];
+    [item setValue:@[@"Kevin"] forKeyPath:@"vault_info.tags"];
+    
+    
+    CCHVault *vault = [CCHVault sharedInstance];
+    NSLog(@"Item :%@", item);
+    [vault updateItem:item completionHandler:^(NSDictionary *response, NSError *error) {
+        NSLog(@"RESPONSE %@", response);
+        NSLog(@"ERROR: %@", error);
+    }];
+}
+
+- (IBAction)addSubscriptionTapped:(id)sender {
+    [[CCHVault sharedInstance] addSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+        NSLog(@"ERROR: %@", error);
+    }];
+}
+
+- (IBAction)removeSubscriptionTapped:(id)sender {
+    [[CCHVault sharedInstance] removeSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+        NSLog(@"ERROR: %@", error);
+    }];
+}
+
+- (IBAction)printSubscriptions:(id)sender {
+    [[CCHSubscriptionService sharedInstance] getSubscriptionsWithCompletion:^(NSDictionary *subscriptions, NSError *error) {
+        NSLog(@"Subscriptions: %@",subscriptions);
+        NSLog(@"ERROR:  %@", error);
+    }];
 }
 
 @end

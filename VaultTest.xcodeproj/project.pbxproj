@@ -24,7 +24,7 @@
 		3D1493B5195C611900B5D997 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1493B4195C611900B5D997 /* CoreMotion.framework */; };
 		3D1493BA195C61C200B5D997 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1493B9195C61C200B5D997 /* CoreLocation.framework */; };
 		3D1493BC195C61C800B5D997 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1493BB195C61C800B5D997 /* MobileCoreServices.framework */; };
-		3D3C6612195DAFB300467FBE /* ContextHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3C6611195DAFB300467FBE /* ContextHub.framework */; };
+		3D5ED2B91965DC330088C300 /* ContextHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5ED2B81965DC330088C300 /* ContextHub.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 		3D1493B4195C611900B5D997 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		3D1493B9195C61C200B5D997 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3D1493BB195C61C800B5D997 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		3D3C6611195DAFB300467FBE /* ContextHub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ContextHub.framework; sourceTree = "<group>"; };
+		3D5ED2B81965DC330088C300 /* ContextHub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContextHub.framework; path = "../contexthub-ios-sdk/Framework/ContextHub.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D1493BC195C61C800B5D997 /* MobileCoreServices.framework in Frameworks */,
-				3D3C6612195DAFB300467FBE /* ContextHub.framework in Frameworks */,
+				3D5ED2B91965DC330088C300 /* ContextHub.framework in Frameworks */,
 				3D1493BA195C61C200B5D997 /* CoreLocation.framework in Frameworks */,
 				3D1493B5195C611900B5D997 /* CoreMotion.framework in Frameworks */,
 				3D149380195C60EB00B5D997 /* CoreGraphics.framework in Frameworks */,
@@ -113,7 +113,7 @@
 		3D14937C195C60EB00B5D997 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D3C6611195DAFB300467FBE /* ContextHub.framework */,
+				3D5ED2B81965DC330088C300 /* ContextHub.framework */,
 				3D1493BB195C61C800B5D997 /* MobileCoreServices.framework */,
 				3D1493B9195C61C200B5D997 /* CoreLocation.framework */,
 				3D1493B4195C611900B5D997 /* CoreMotion.framework */,
@@ -216,6 +216,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Context Hub";
 				TargetAttributes = {
+					3D149379195C60EB00B5D997 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					3D14939A195C60EB00B5D997 = {
 						TestTargetID = 3D149379195C60EB00B5D997;
 					};
@@ -397,6 +404,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ContextHub-gbijwnmaugqoosakwrkhtwtkmksy/Build/Products/Debug-iphoneos",
+					"/Users/KevinLee/chaione/contexthub-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaultTest/VaultTest-Prefix.pch";
@@ -415,6 +423,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ContextHub-gbijwnmaugqoosakwrkhtwtkmksy/Build/Products/Debug-iphoneos",
+					"/Users/KevinLee/chaione/contexthub-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaultTest/VaultTest-Prefix.pch";
