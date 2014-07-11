@@ -14,11 +14,39 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [ContextHub registerWithAppId:@"9ed83d1c-a72e-4733-aefd-181cbe518a04"];
     [[ContextHub sharedInstance] setDebug:YES];
+// Staging
+//    [ContextHub registerWithAppId:@"9ed83d1c-a72e-4733-aefd-181cbe518a04"];
+// Prod
+    [ContextHub registerWithAppId:@"fafc3fd0-cbac-4196-b85a-37055ec8e514"];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+
     return YES;
 }
-							
+
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"Did fail to register: %@", error);
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [[CCHPush sharedInstance] registerDeviceToken:deviceToken alias:[ContextHub deviceId] tags:@[@"integration", @"kevin", [ContextHub deviceId]] completionHandler:^(NSError *error) {
+        NSLog(@"Did register");
+    }];
+}
+
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+//    NSLog(@"Did receive push %@", userInfo);
+//}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"Did receive push %@", userInfo);
+    [[CCHPush sharedInstance] application:application didReceiveRemoteNotification:userInfo completionHandler:^(enum UIBackgroundFetchResult result) {
+        NSLog(@"Did handle remote notification");
+        completionHandler(result);
+    }];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

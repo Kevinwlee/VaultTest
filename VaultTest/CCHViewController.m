@@ -18,9 +18,11 @@
 
 @implementation CCHViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived:) name:CCHVaultItemCreatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived:) name:CCHVaultItemUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived:) name:CCHVaultItemDeletedNotification object:nil];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -29,9 +31,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)notificationReceived:(NSNotification *)notification {
+    NSLog(@"Notification %@", notification);
+}
+
 - (IBAction)createTapped:(id)sender {
-//    NSDictionary *item = @{@"name":@"kevin"};
-    NSArray *item = @[@"Kevin", @"Chris", @"Sitting", @"Tree"];
+    NSDictionary *item = @{@"name":@"kevin"};
     NSArray *tags = @[@"integration"];
 
     CCHVault *vault = [CCHVault sharedInstance];
@@ -149,15 +155,25 @@
 }
 
 - (IBAction)addSubscriptionTapped:(id)sender {
-    [[CCHVault sharedInstance] addSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+//    [[CCHVault sharedInstance] addSubscriptionForTags:@[@"integration", @"Integration"] completionHandler:^(NSError *error) {
+//        NSLog(@"ERROR: %@", error);
+//    }];
+    [[CCHSubscriptionService sharedInstance] addGeofenceSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
         NSLog(@"ERROR: %@", error);
     }];
+
+    [[CCHSubscriptionService sharedInstance] addBeaconSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+        NSLog(@"ERROR: %@", error);
+    }];
+
+
 }
 
 - (IBAction)removeSubscriptionTapped:(id)sender {
-    [[CCHVault sharedInstance] removeSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
-        NSLog(@"ERROR: %@", error);
-    }];
+//    [[CCHVault sharedInstance] removeSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+//        NSLog(@"ERROR: %@", error);
+//    }];
+    
 }
 
 - (IBAction)printSubscriptions:(id)sender {
