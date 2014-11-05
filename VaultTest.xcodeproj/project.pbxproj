@@ -24,7 +24,7 @@
 		3D1493B5195C611900B5D997 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1493B4195C611900B5D997 /* CoreMotion.framework */; };
 		3D1493BA195C61C200B5D997 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1493B9195C61C200B5D997 /* CoreLocation.framework */; };
 		3D1493BC195C61C800B5D997 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1493BB195C61C800B5D997 /* MobileCoreServices.framework */; };
-		3D5ED2B91965DC330088C300 /* ContextHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5ED2B81965DC330088C300 /* ContextHub.framework */; };
+		3D29A9221A0986B800B43A32 /* ContextHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D29A9211A0986B800B43A32 /* ContextHub.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 		3D1493B4195C611900B5D997 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		3D1493B9195C61C200B5D997 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3D1493BB195C61C800B5D997 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		3D5ED2B81965DC330088C300 /* ContextHub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContextHub.framework; path = "../contexthub-ios-sdk/Framework/ContextHub.framework"; sourceTree = "<group>"; };
+		3D29A9211A0986B800B43A32 /* ContextHub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ContextHub.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D1493BC195C61C800B5D997 /* MobileCoreServices.framework in Frameworks */,
-				3D5ED2B91965DC330088C300 /* ContextHub.framework in Frameworks */,
+				3D29A9221A0986B800B43A32 /* ContextHub.framework in Frameworks */,
 				3D1493BA195C61C200B5D997 /* CoreLocation.framework in Frameworks */,
 				3D1493B5195C611900B5D997 /* CoreMotion.framework in Frameworks */,
 				3D149380195C60EB00B5D997 /* CoreGraphics.framework in Frameworks */,
@@ -113,7 +113,7 @@
 		3D14937C195C60EB00B5D997 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D5ED2B81965DC330088C300 /* ContextHub.framework */,
+				3D29A9211A0986B800B43A32 /* ContextHub.framework */,
 				3D1493BB195C61C800B5D997 /* MobileCoreServices.framework */,
 				3D1493B9195C61C200B5D997 /* CoreLocation.framework */,
 				3D1493B4195C611900B5D997 /* CoreMotion.framework */,
@@ -342,6 +342,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -380,7 +381,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -405,8 +407,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ContextHub-gbijwnmaugqoosakwrkhtwtkmksy/Build/Products/Debug-iphoneos",
-					"/Users/KevinLee/chaione/contexthub-ios-sdk/Framework",
+					"/Users/kevinlee/contexthub/contexthub-ios-sdk/Framework",
+					"/Users/kevinlee/contexthub/contexthub-ios-framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaultTest/VaultTest-Prefix.pch";
@@ -425,8 +427,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ContextHub-gbijwnmaugqoosakwrkhtwtkmksy/Build/Products/Debug-iphoneos",
-					"/Users/KevinLee/chaione/contexthub-ios-sdk/Framework",
+					"/Users/kevinlee/contexthub/contexthub-ios-sdk/Framework",
+					"/Users/kevinlee/contexthub/contexthub-ios-framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaultTest/VaultTest-Prefix.pch";

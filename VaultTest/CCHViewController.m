@@ -20,12 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived:) name:CCHVaultItemCreatedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived:) name:CCHVaultItemUpdatedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived:) name:CCHVaultItemDeletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived:) name:CCHSubscriptionResourceChangeNotification object:nil];
+    
 	// Do any additional setup after loading the view, typically from a nib.
 }
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -33,11 +35,13 @@
 }
 
 - (void)notificationReceived:(NSNotification *)notification {
-    NSLog(@"Notification %@", notification);
+    if (![[notification.userInfo objectForKey:@"resource"] isEqualToString:@"Device"]) {
+      NSLog(@"Notification %@", notification);
+    }
 }
 
 - (IBAction)createTapped:(id)sender {
-    NSDictionary *item = @{@"name":@"kevin"};
+    NSDictionary *item = @{@"name":@"kalvin"};
     NSArray *tags = @[@"integration"];
 
     CCHVault *vault = [CCHVault sharedInstance];
@@ -48,12 +52,32 @@
 }
 
 - (IBAction)getTapped:(id)sender {
-    CCHVault *vault = [CCHVault sharedInstance];
-    [vault getItemsWithTags:@[@"integration"] completionHandler:^(NSArray *responses, NSError *error) {
-        NSLog(@"RESPONSE %@", responses);
-        NSLog(@"ERROR: %@", error);
-        self.items = responses;
-    }];
+//    CCHVault *vault = [CCHVault sharedInstance];
+//    [vault getItemsWithTags:@[@"Kevin", @"pipeline"] completionHandler:^(NSArray *responses, NSError *error) {
+//        NSLog(@"RESPONSE %@", responses);
+//        NSLog(@"ERROR: %@", error);
+//        self.items = responses;
+//    }];
+    
+//    [[CCHBeaconService sharedInstance] getBeaconsWithTags:@[@"integration", @"pipeline"] operator:nil completionHandler:^(NSArray *beacons, NSError *error) {
+//        NSLog(@"RESPONSE %@", beacons);
+//        NSLog(@"ERROR: %@", error);
+//    }];
+
+//    [[CCHGeofenceService sharedInstance] getGeofencesWithTags:@[@"integration", @"pipeline"] operator:@"ALL" location:nil radius:0 completionHandler:^(NSArray *geofences, NSError *error) {
+//        NSLog(@"RESPONSE %@", geofences);
+//        NSLog(@"ERROR: %@", error);
+//        
+//    }];
+//    [vault getItemsWithTags:@[] completionHandler:^(NSArray *responses, NSError *error) {
+//        NSLog(@"RESPONSE EMPTY %lu", responses.count);
+//
+//    }];
+//    
+//    [vault getItemsWithTags:nil completionHandler:^(NSArray *responses, NSError *error) {
+//        NSLog(@"RESPONSE NIL COUNT %lu", responses.count);
+//        NSLog(@"RESPONSE NIL %@", responses);
+//    }];
 }
 
 - (IBAction)updateTapped:(id)sender {
@@ -107,21 +131,22 @@
 }
 
 - (IBAction)queryItemsTapped:(id)sender {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", @"kevin"];
-    NSLog(@"Predicate %@", predicate);
-    NSExpression *lhs = [NSExpression expressionForKeyPath:@"this.data.name"];
-    NSExpression *rhs = [NSExpression expressionForConstantValue:@"kevin"];
-    NSPredicate *comp = [NSComparisonPredicate predicateWithLeftExpression:lhs rightExpression:rhs modifier:NSDirectPredicateModifier type:NSEqualToPredicateOperatorType options:NSCaseInsensitivePredicateOption];
-    NSArray *filter = [self.items filteredArrayUsingPredicate:comp];
-    NSLog(@"Items %@", filter);
-    NSLog(@"predicate %@", comp);
     
-    [[CCHVault sharedInstance] getItemsWithTags:@[@"integration"] keyPath:@"name" value:@"Kalvin" completionHandler:^(NSArray *responses, NSError *error) {
+    [[CCHVault sharedInstance] getItemsWithTags:@[@"integration"] keyPath:@"name" value:@"kalvin" completionHandler:^(NSArray *responses, NSError *error) {
         NSLog(@"RESPONSE %@", responses);
         NSLog(@"ERROR: %@", error);
         
     }];
     
+    [[CCHVault sharedInstance] getItemsWithTags:nil keyPath:@"name" value:@"kalvin" completionHandler:^(NSArray *responses, NSError *error) {
+        NSLog(@"RESPONSE NIL %lu", responses.count);
+        
+    }];
+
+    [[CCHVault sharedInstance] getItemsWithTags:@[] keyPath:@"name" value:@"kalvin" completionHandler:^(NSArray *responses, NSError *error) {
+        NSLog(@"RESPONSE EMPTY %lu", responses.count);
+    }];
+
 }
 
 - (IBAction)addTagTapped:(id)sender {
@@ -155,32 +180,72 @@
 }
 
 - (IBAction)addSubscriptionTapped:(id)sender {
-//    [[CCHVault sharedInstance] addSubscriptionForTags:@[@"integration", @"Integration"] completionHandler:^(NSError *error) {
-//        NSLog(@"ERROR: %@", error);
-//    }];
-    [[CCHSubscriptionService sharedInstance] addGeofenceSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+    [[CCHSubscriptionService sharedInstance] addSubscriptionsForTags:@[@"PowerCurve"] options:@[CCHOptionVault] completionHandler:^(NSError *error) {
         NSLog(@"ERROR: %@", error);
     }];
 
-    [[CCHSubscriptionService sharedInstance] addBeaconSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+    [[CCHSubscriptionService sharedInstance] addSubscriptionsForTags:@[@"test-422"] options:@[CCHOptionVault] completionHandler:^(NSError *error) {
         NSLog(@"ERROR: %@", error);
     }];
+
+//    [[CCHSubscriptionService sharedInstance] addSubscriptionsForTags:@[@"integration", @"Integration", @"remove-me", @"pipeline"] options:@[CCHOptionVault] completionHandler:^(NSError *error) {
+//        NSLog(@"ERROR: %@", error);
+//        if ([NSThread isMainThread]) {
+//            NSLog(@"main thread");
+//        } else {
+//            NSLog(@"Not main thread");
+//        }
+//        
+//    }];
+    NSLog(@"Adding Tags");
+    [[CCHSensorPipeline sharedInstance] addElementsWithTags:@[@"geo1", @"geo2", @"pipeline"]];
 
 
 }
 
 - (IBAction)removeSubscriptionTapped:(id)sender {
-//    [[CCHVault sharedInstance] removeSubscriptionForTags:@[@"integration"] completionHandler:^(NSError *error) {
+//    [[CCHSubscriptionService sharedInstance] removeSubscriptionsForTags:@[@"remove-me"] options:nil completionHandler:^(NSError *error) {
 //        NSLog(@"ERROR: %@", error);
+//        if ([NSThread isMainThread]) {
+//            NSLog(@"main thread");
+//        } else {
+//            NSLog(@"Not main thread");
+//        }
+//        
 //    }];
-    
+    NSLog(@"Removing Tag");
+    [[CCHSensorPipeline sharedInstance] removeElementsWithTags:@[@"geo1"]];
 }
 
 - (IBAction)printSubscriptions:(id)sender {
-    [[CCHSubscriptionService sharedInstance] getSubscriptionsWithCompletion:^(NSDictionary *subscriptions, NSError *error) {
+    [[CCHSubscriptionService sharedInstance] getSubscriptionsWithCompletionHandler:^(NSDictionary *subscriptions, NSError *error) {
         NSLog(@"Subscriptions: %@",subscriptions);
-        NSLog(@"ERROR:  %@", error);
+        if (error) {
+            NSLog(@"ERROR:  %@", error);
+        }
     }];
+
+//    [[CCHSensorPipeline sharedInstance] triggerEvent:@{@"name":@"button_tapped"} completionHandler:^(NSError *error) {
+//
+//        
+//    }];
+    
+    CLLocationManager *mgr = [[CLLocationManager alloc] init];
+    NSLog(@" Locations Monitored %@", mgr.monitoredRegions);
+
+//    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-8876223462A3"];
+//    CLBeaconRegion *jp = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"SAMPLE"];
+//    [mgr startMonitoringForRegion:jp];
+
+//    CLCircularRegion *r1 = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(31., -95.) radius:100 identifier:@"Sand Creek"];
+//    CLCircularRegion *r2 = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(30., -95.) radius:1000 identifier:@"Sand Creek"];
+//    
+//    if ([r1 isEqual:r2]) {
+//        NSLog(@"Eqaul");
+//    } else {
+//        NSLog(@"Not Eqaul");
+//    }
+    
 }
 
 @end

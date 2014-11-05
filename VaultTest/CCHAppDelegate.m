@@ -7,7 +7,6 @@
 //
 
 #import "CCHAppDelegate.h"
-#import <ContextHub/ContextHub.h>
 
 @implementation CCHAppDelegate
 
@@ -16,11 +15,18 @@
     // Override point for customization after application launch.
     [[ContextHub sharedInstance] setDebug:YES];
 // Staging
+//    NSLog(@"before");
 //    [ContextHub registerWithAppId:@"9ed83d1c-a72e-4733-aefd-181cbe518a04"];
+//    NSLog(@"after");
 // Prod
     [ContextHub registerWithAppId:@"fafc3fd0-cbac-4196-b85a-37055ec8e514"];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    [[CCHSensorPipeline sharedInstance] addElementsWithTags:@[@"pipeline"]];
+    
+    [[CCHSensorPipeline sharedInstance] setDelegate:self];
+    [[CCHSensorPipeline sharedInstance] setDataSource:self];
     return YES;
 }
 
@@ -41,10 +47,29 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"Did receive push %@", userInfo);
-    [[CCHPush sharedInstance] application:application didReceiveRemoteNotification:userInfo completionHandler:^(enum UIBackgroundFetchResult result) {
-        NSLog(@"Did handle remote notification");
-        completionHandler(result);
-    }];
+//    [[CCHPush sharedInstance] application:application didReceiveRemoteNotification:userInfo completionHandler:^(enum UIBackgroundFetchResult result, CCHContextHubPush *CCHContextHubPush) {
+//        NSLog(@"Did handle remote notification:");
+//        NSLog(@"%@", CCHContextHubPush.object);
+//        NSLog(@"%@", CCHContextHubPush.userInfo);
+//        NSLog(@"%@", CCHContextHubPush.name);
+//        completionHandler(result);
+//    }];
+}
+
+- (void)sensorPipeline:(CCHSensorPipeline *)sensorPipeline didDetectEvent:(NSDictionary *)event {
+    NSLog(@"Did Detect Event %@", event);
+}
+
+- (void)sensorPipeline:(CCHSensorPipeline *)sensorPipeline willPostEvent:(NSDictionary *)event {
+    NSLog(@"Will Post Event %@", [event valueForKeyPath:@"event.name"]);
+}
+
+- (void)sensorPipeline:(CCHSensorPipeline *)sensorPipeline didPostEvent:(NSDictionary *)event {
+    NSLog(@"Did Post Event %@", [event valueForKeyPath:@"event.name"]);
+}
+
+- (NSDictionary *)sensorPipeline:(CCHSensorPipeline *)sensorPipeline payloadForEvent:(NSDictionary *)event {
+    return @{@"name":@"custom payload"};
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

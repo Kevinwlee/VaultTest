@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5E65C96D-CF60-4E18-B579-E2EF08963F20</string>
+	<key>IDESourceControlProjectName</key>
+	<string>VaultTest</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0C18D1106E88821FB2355D4A4859B27620F38C24</key>
+		<string>github.com:Kevinwlee/VaultTest.git</string>
+		<key>509A003EFB9F3E7A815E730C0D19F3B218F1E051</key>
+		<string>https://github.com/contexthub/contexthub-ios-sdk.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>VaultTest.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0C18D1106E88821FB2355D4A4859B27620F38C24</key>
+		<string>../..</string>
+		<key>509A003EFB9F3E7A815E730C0D19F3B218F1E051</key>
+		<string>../../../contexthub-ios-sdk</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:Kevinwlee/VaultTest.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0C18D1106E88821FB2355D4A4859B27620F38C24</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>509A003EFB9F3E7A815E730C0D19F3B218F1E051</string>
+			<key>IDESourceControlWCCName</key>
+			<string>contexthub-ios-sdk</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0C18D1106E88821FB2355D4A4859B27620F38C24</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VaultTest</string>
+		</dict>
+	</array>
+</dict>
+</plist>

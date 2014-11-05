@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ContextHub/ContextHub.h>
 
-@interface CCHAppDelegate : UIResponder <UIApplicationDelegate>
+@interface CCHAppDelegate : UIResponder <UIApplicationDelegate, CCHSensorPipelineDelegate, CCHSensorPipelineDataSource>
 
 @property (strong, nonatomic) UIWindow *window;
 
